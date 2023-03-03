@@ -1,47 +1,38 @@
-import 'phaser';
+import "phaser";
+import {Ball} from "./objects/ball";
+import {TextButton} from "./objects/button";
+import {Floor} from "./objects/floor";
 
-export default class Demo extends Phaser.Scene
-{
-    constructor ()
-    {
-        super('demo');
-    }
+export default class Demo extends Phaser.Scene {
+	constructor() {
+		super("demo");
+	}
 
-    preload ()
-    {
-        this.load.image('logo', 'assets/phaser3-logo.png');
-        this.load.image('libs', 'assets/libs.png');
-        this.load.glsl('bundle', 'assets/plasma-bundle.glsl.js');
-        this.load.glsl('stars', 'assets/starfields.glsl.js');
-    }
+	preload() {
+		this.load.image("ball", "assets/ball.png");
+	}
 
-    create ()
-    {
-        this.add.shader('RGB Shift Field', 0, 0, 800, 600).setOrigin(0);
+	create() {
+		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
+		const ball = new Ball(this, 0, 300, "ball");
+		const button = new TextButton(this, 400, 550, "LAUNCH BALL", {color: "#0f0 "}, ball.reset);
 
-        this.add.shader('Plasma', 0, 412, 800, 172).setOrigin(0);
-
-        this.add.image(400, 300, 'libs');
-
-        const logo = this.add.image(400, 70, 'logo');
-
-        this.tweens.add({
-            targets: logo,
-            y: 350,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            repeat: -1
-        })
-    }
+		this.physics.add.collider(ball, floor);
+	}
 }
 
 const config = {
-    type: Phaser.AUTO,
-    backgroundColor: '#125555',
-    width: 800,
-    height: 600,
-    scene: Demo
+	type: Phaser.AUTO,
+	backgroundColor: "#125555",
+	width: 800,
+	height: 600,
+	physics: {
+		default: "arcade",
+		arcade: {
+			debug: true,
+		},
+	},
+	scene: Demo,
 };
 
 const game = new Phaser.Game(config);

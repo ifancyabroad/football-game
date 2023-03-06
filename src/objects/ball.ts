@@ -41,6 +41,6 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 		const velocityX = (this.x - player.x) * 10;
 
-		this.setGravityY(0).setVelocity(velocityX, -500);
+		this.setGravityY(0).setVelocity(velocityX, -600);
 	};
 }

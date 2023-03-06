@@ -2,6 +2,7 @@ import "phaser";
 import {Ball} from "./objects/ball";
 import {TextButton} from "./objects/button";
 import {Floor} from "./objects/floor";
+import {Goal} from "./objects/goal";
 import {Player} from "./objects/player";
 
 export default class Demo extends Phaser.Scene {
@@ -17,9 +18,10 @@ export default class Demo extends Phaser.Scene {
 	}
 
 	create() {
+		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
+		const goal = new Goal(this, 400, 150, 400, 200, 0x6666ff);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 500, 50, 100);
-		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
 		const button = new TextButton(
 			this,
 			400,
@@ -35,7 +37,6 @@ export default class Demo extends Phaser.Scene {
 
 const config = {
 	type: Phaser.AUTO,
-	backgroundColor: "#125555",
 	width: 800,
 	height: 600,
 	physics: {

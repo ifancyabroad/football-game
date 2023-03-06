@@ -16,11 +16,13 @@ export default class Demo extends Phaser.Scene {
 
 	preload() {
 		this.load.image("ball", "assets/ball.png");
+		this.load.image("background", "assets/goal2.jpg");
 	}
 
 	create() {
-		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
-		this.goal = new Goal(this, 400, 200, 400, 200, 0x6666ff);
+		const background = this.add.image(0, 0, "background").setOrigin(0);
+		const floor = new Floor(this, 400, 500, 0, 0, 800, 0);
+		this.goal = new Goal(this, 400, 240, 400, 120);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 500, 50, 100);
 		const button = new TextButton(
@@ -28,7 +30,7 @@ export default class Demo extends Phaser.Scene {
 			400,
 			550,
 			"LAUNCH BALL",
-			{color: "#0f0 "},
+			{color: "#00f "},
 			this.ball.reset
 		);
 

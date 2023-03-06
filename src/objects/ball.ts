@@ -1,3 +1,5 @@
+import {Player} from "./player";
+
 export class Ball extends Phaser.Physics.Arcade.Image {
 	constructor(
 		scene: Phaser.Scene,
@@ -22,6 +24,23 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		const position = Phaser.Math.Between(200, 400);
 		const velocityX = Phaser.Math.Between(250, 350);
 		const velocityY = Phaser.Math.Between(0, -50);
-		this.setPosition(0, position).setVelocity(velocityX, velocityY);
+		this.setScale(1)
+			.setGravityY(150)
+			.setPosition(0, position)
+			.setVelocity(velocityX, velocityY);
+	};
+
+	public shoot = (object1: Phaser.GameObjects.GameObject) => {
+		const player = object1 as Player;
+
+		this.scene.add.tween({
+			targets: this,
+			scale: 0.5,
+			duration: 1000,
+		});
+
+		const velocityX = (this.x - player.x) * 10;
+
+		this.setGravityY(0).setVelocity(velocityX, -500);
 	};
 }

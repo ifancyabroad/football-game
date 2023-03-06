@@ -2,8 +2,12 @@ import "phaser";
 import {Ball} from "./objects/ball";
 import {TextButton} from "./objects/button";
 import {Floor} from "./objects/floor";
+import {Player} from "./objects/player";
 
 export default class Demo extends Phaser.Scene {
+	player: Player;
+	ball: Ball;
+
 	constructor() {
 		super("demo");
 	}
@@ -13,11 +17,19 @@ export default class Demo extends Phaser.Scene {
 	}
 
 	create() {
+		this.ball = new Ball(this, 0, 300, "ball");
+		this.player = new Player(this, 400, 500, 50, 100);
 		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
-		const ball = new Ball(this, 0, 300, "ball");
-		const button = new TextButton(this, 400, 550, "LAUNCH BALL", {color: "#0f0 "}, ball.reset);
+		const button = new TextButton(
+			this,
+			400,
+			550,
+			"LAUNCH BALL",
+			{color: "#0f0 "},
+			this.ball.reset
+		);
 
-		this.physics.add.collider(ball, floor);
+		this.physics.add.collider(this.ball, floor);
 	}
 }
 

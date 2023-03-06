@@ -1,35 +1,41 @@
-export class TextButton extends Phaser.GameObjects.Text {
-	constructor(
-		scene: Phaser.Scene,
-		x: number,
-		y: number,
-		text: string | string[],
-		style: Phaser.Types.GameObjects.Text.TextStyle,
-		callback: any
-	) {
-		super(scene, x, y, text, style);
+import Demo from "../game";
 
-		this.setInteractive({useHandCursor: true})
-			.on("pointerover", this.enterButtonHoverState)
-			.on("pointerout", this.enterButtonRestState)
-			.on("pointerdown", this.enterButtonActiveState)
+export class Button extends Phaser.GameObjects.Container {
+	private background: Phaser.GameObjects.Image;
+	private text: Phaser.GameObjects.Text;
+
+	constructor(scene: Demo, x?: number, y?: number, children?: Phaser.GameObjects.GameObject[]) {
+		super(scene, x, y, children);
+
+		this.background = scene.add.image(0, 0, "button").setScale(0.4);
+		this.text = scene.add
+			.text(0, 0, "LAUNCH BALL", {
+				fontSize: "18px",
+				fontFamily: "Arial, sans-serif",
+			})
+			.setOrigin(0.5, 0.5);
+
+		this.add([this.background, this.text]);
+
+		this.background
+			.setInteractive({useHandCursor: true})
+			.on("pointerout", this.enterButtonRestState, this)
+			.on("pointerdown", this.enterButtonActiveState, this)
 			.on("pointerup", () => {
-				this.enterButtonHoverState();
-				callback();
+				this.enterButtonRestState();
+				scene.ball.reset();
 			});
 
-		scene.add.existing(this).setOrigin(0.5);
+		this.setData("defaultPosition", y);
+
+		scene.add.existing(this);
 	}
 
-	enterButtonHoverState() {
-		this.setStyle({fill: "#ff0 "});
+	private enterButtonRestState() {
+		this.setY(this.data.values.defaultPosition);
 	}
 
-	enterButtonRestState() {
-		this.setStyle({fill: "#00f "});
-	}
-
-	enterButtonActiveState() {
-		this.setStyle({fill: "#0ff"});
+	private enterButtonActiveState() {
+		this.setY(this.y + 5);
 	}
 }

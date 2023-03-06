@@ -4,7 +4,12 @@ export class Button extends Phaser.GameObjects.Container {
 	private background: Phaser.GameObjects.Image;
 	private text: Phaser.GameObjects.Text;
 
-	constructor(scene: Demo, x?: number, y?: number, children?: Phaser.GameObjects.GameObject[]) {
+	constructor(
+		scene: Phaser.Scene,
+		x?: number,
+		y?: number,
+		children?: Phaser.GameObjects.GameObject[]
+	) {
 		super(scene, x, y, children);
 
 		this.background = scene.add.image(0, 0, "button").setScale(0.4);
@@ -22,8 +27,9 @@ export class Button extends Phaser.GameObjects.Container {
 			.on("pointerout", this.enterButtonRestState, this)
 			.on("pointerdown", this.enterButtonActiveState, this)
 			.on("pointerup", () => {
+				const demoScene = scene as Demo;
 				this.enterButtonRestState();
-				scene.ball.reset();
+				demoScene.ball.reset();
 			});
 
 		this.setData("defaultPosition", y);

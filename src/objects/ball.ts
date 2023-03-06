@@ -40,32 +40,25 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 		this.scene.sound.play("kick");
 
-		const tween = this.scene.add.tween({
-			targets: this,
-			scale: 0.2,
-			duration: 600,
-		});
-
 		const velocityX = (this.x - player.x) * 10;
 		const velocityY = (this.y - player.y) * 15;
 
 		this.setGravityY(0).setVelocity(velocityX, velocityY).setAngularVelocity(0);
 
-		this.scene.time.delayedCall(
-			400,
-			() => {
-				this.scene.physics.overlap(
-					this,
-					scene.goal,
-					(object1: Phaser.GameObjects.GameObject) => {
-						this.scene.sound.play("goal");
-						tween.stop();
-						this.setVelocity(0, 0);
-					}
-				);
-			},
-			null,
-			this
-		);
+		this.scene.add.tween({
+			targets: this,
+			scale: 0.5,
+			duration: 400,
+			onComplete: this.scoreCheck,
+		});
+	};
+
+	public scoreCheck = () => {
+		const scene = this.scene as Demo;
+
+		this.scene.physics.overlap(this, scene.goal, (object1: Phaser.GameObjects.GameObject) => {
+			this.scene.sound.play("goal");
+			this.setVelocity(0, 0);
+		});
 	};
 }

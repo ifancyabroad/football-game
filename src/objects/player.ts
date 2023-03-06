@@ -2,7 +2,7 @@ import Demo from "../game";
 
 export class Player extends Phaser.GameObjects.Ellipse {
 	constructor(
-		scene: Demo,
+		scene: Phaser.Scene,
 		x?: number,
 		y?: number,
 		width?: number,
@@ -27,7 +27,8 @@ export class Player extends Phaser.GameObjects.Ellipse {
 		scene.input.on(
 			"pointerup",
 			function (pointer: Phaser.Input.Pointer) {
-				scene.physics.overlap(this, scene.ball, scene.ball.shoot);
+				const demoScene = scene as Demo;
+				scene.physics.overlap(this, demoScene.ball, demoScene.ball.shoot);
 			},
 			this
 		);

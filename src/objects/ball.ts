@@ -38,6 +38,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		const player = object1 as Player;
 		const scene = this.scene as Demo;
 
+		this.scene.sound.play("kick");
+
 		const tween = this.scene.add.tween({
 			targets: this,
 			scale: 0.5,
@@ -56,6 +58,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 					this,
 					scene.goal,
 					(object1: Phaser.GameObjects.GameObject) => {
+						this.scene.sound.play("goal");
 						tween.stop();
 						this.setVelocity(0, 0);
 					}

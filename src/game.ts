@@ -8,6 +8,7 @@ import {Player} from "./objects/player";
 export default class Demo extends Phaser.Scene {
 	player: Player;
 	ball: Ball;
+	goal: Goal;
 
 	constructor() {
 		super("demo");
@@ -19,7 +20,7 @@ export default class Demo extends Phaser.Scene {
 
 	create() {
 		const floor = new Floor(this, 400, 500, 0, 0, 800, 0, 0x6666ff);
-		const goal = new Goal(this, 400, 150, 400, 200, 0x6666ff);
+		this.goal = new Goal(this, 400, 200, 400, 200, 0x6666ff);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 500, 50, 100);
 		const button = new TextButton(

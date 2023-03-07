@@ -36,6 +36,10 @@ export default class Demo extends Phaser.Scene {
 
 		this.physics.add.collider(this.ball, floor);
 	}
+
+	update() {
+		this.goalkeeper.update();
+	}
 }
 
 const config = {

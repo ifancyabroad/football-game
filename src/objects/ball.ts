@@ -40,14 +40,14 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		this.scene.sound.play("kick");
 
 		const velocityX = (this.x - player.x) * 10;
-		const velocityY = (this.y - player.y) * 15;
+		const velocityY = (this.y - player.y) * 20;
 
 		this.setGravityY(0).setVelocity(velocityX, velocityY).setAngularVelocity(0);
 
 		this.scene.add.tween({
 			targets: this,
 			scale: 0.5,
-			duration: 400,
+			duration: 600,
 			onComplete: this.scoreCheck,
 		});
 	};

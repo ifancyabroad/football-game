@@ -21,6 +21,7 @@ export default class Demo extends Phaser.Scene {
 		this.load.image("background", "assets/goal2.jpg");
 		this.load.image("button", "assets/button.png");
 		this.load.image("goalkeeper", "assets/goalkeeper.png");
+		this.load.image("boot", "assets/boot.png");
 		this.load.audio("kick", "assets/sport_soccer_ball_kick.mp3");
 		this.load.audio("goal", "assets/human_crowd_approx_150_people_cheer_indoors.mp3");
 		this.load.audio("save", "assets/mixkit-soccer-ball-quick-kick-2108.wav");
@@ -32,8 +33,8 @@ export default class Demo extends Phaser.Scene {
 		this.goal = new Goal(this, 400, 240, 400, 140);
 		this.goalkeeper = new Goalkeeper(this, 400, 280);
 		this.ball = new Ball(this, 0, 300, "ball");
-		this.player = new Player(this, 400, 500, 50, 100);
-		const button = new Button(this, 400, 550, []);
+		this.player = new Player(this, 400, 480, "boot");
+		const button = new Button(this, 400, 550);
 
 		this.physics.add.collider(this.ball, floor);
 	}

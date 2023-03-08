@@ -36,7 +36,6 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 	public shoot = (object1: Phaser.GameObjects.GameObject) => {
 		const player = object1 as Player;
-		const scene = this.scene as Demo;
 
 		this.scene.sound.play("kick");
 
@@ -56,9 +55,24 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	public scoreCheck = () => {
 		const scene = this.scene as Demo;
 
-		this.scene.physics.overlap(this, scene.goal, (object1: Phaser.GameObjects.GameObject) => {
+		if (this.scene.physics.overlap(this, scene.goalkeeper.sprite)) {
+			scene.goalkeeper.save();
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goalkeeper.leftHand)) {
+			scene.goalkeeper.save();
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goalkeeper.rightHand)) {
+			scene.goalkeeper.save();
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goal)) {
 			this.scene.sound.play("goal");
-			this.setVelocity(0, 0);
-		});
+			this.body.stop();
+		}
 	};
 }

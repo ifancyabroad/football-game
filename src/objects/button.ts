@@ -12,6 +12,8 @@ export class Button extends Phaser.GameObjects.Container {
 	) {
 		super(scene, x, y, children);
 
+		this.setData("defaultPosition", y);
+
 		this.background = scene.add.image(0, 0, "button").setScale(0.4);
 		this.text = scene.add
 			.text(0, 0, "LAUNCH BALL", {
@@ -31,8 +33,6 @@ export class Button extends Phaser.GameObjects.Container {
 				this.enterButtonRestState();
 				demoScene.ball.reset();
 			});
-
-		this.setData("defaultPosition", y);
 
 		scene.add.existing(this);
 	}

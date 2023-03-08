@@ -5,12 +5,17 @@ import {Floor} from "./objects/floor";
 import {Goal} from "./objects/goal";
 import {Goalkeeper} from "./objects/goalkeeper";
 import {Player} from "./objects/player";
+import {ScoreCounter} from "./objects/scoreCounter";
 
 export default class Demo extends Phaser.Scene {
-	player: Player;
-	ball: Ball;
-	goal: Goal;
-	goalkeeper: Goalkeeper;
+	public score: number;
+	public scoreCounter: ScoreCounter;
+	public floor: Floor;
+	public goal: Goal;
+	public goalkeeper: Goalkeeper;
+	public ball: Ball;
+	public player: Player;
+	public button: Button;
 
 	constructor() {
 		super("demo");
@@ -28,15 +33,23 @@ export default class Demo extends Phaser.Scene {
 	}
 
 	create() {
-		const background = this.add.image(0, 0, "background").setOrigin(0);
-		const floor = new Floor(this, 400, 500, 0, 0, 800, 0);
+		this.add.image(0, 0, "background").setOrigin(0);
+
+		this.score = 0;
+		this.scoreCounter = new ScoreCounter(this, 640, 20, "GOALS: 0", {
+			fontSize: "24px",
+			fontFamily: "Arial, sans-serif",
+			stroke: "#000000",
+			strokeThickness: 6,
+		});
+		this.floor = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.goal = new Goal(this, 400, 240, 400, 140);
 		this.goalkeeper = new Goalkeeper(this, 400, 280);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 480, "boot");
-		const button = new Button(this, 400, 550);
+		this.button = new Button(this, 400, 550);
 
-		this.physics.add.collider(this.ball, floor);
+		this.physics.add.collider(this.ball, this.floor);
 	}
 
 	update() {

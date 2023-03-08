@@ -72,6 +72,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 		if (this.scene.physics.overlap(this, scene.goal)) {
 			this.scene.sound.play("goal");
+			scene.score++;
+			scene.scoreCounter.updateScore(scene.score);
 			this.body.stop();
 		}
 	};

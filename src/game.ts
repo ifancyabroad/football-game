@@ -10,7 +10,8 @@ import {ScoreCounter} from "./objects/scoreCounter";
 export default class Demo extends Phaser.Scene {
 	public score: number;
 	public scoreCounter: ScoreCounter;
-	public floor: Floor;
+	public floor1: Floor;
+	public floor2: Floor;
 	public goal: Goal;
 	public goalkeeper: Goalkeeper;
 	public ball: Ball;
@@ -43,14 +44,15 @@ export default class Demo extends Phaser.Scene {
 			stroke: "#000000",
 			strokeThickness: 6,
 		});
-		this.floor = new Floor(this, 400, 500, 0, 0, 800, 0);
+		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
+		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);
 		this.goal = new Goal(this, 400, 240, 400, 140);
 		this.goalkeeper = new Goalkeeper(this, 400, 280);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 480, "boot");
 		this.button = new Button(this, 400, 550);
 
-		this.physics.add.collider(this.ball, this.floor);
+		this.physics.add.collider(this.ball, this.floor1);
 	}
 
 	update() {

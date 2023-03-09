@@ -71,14 +71,6 @@ export class Goalkeeper extends Phaser.GameObjects.Container {
 		}
 	};
 
-	public save = () => {
-		const scene = this.scene as Demo;
-		this.scene.sound.play("save");
-		const velocityX = (scene.ball.x - this.x) * 15;
-		const velocityY = scene.ball.y - this.y < 0 ? (scene.ball.y - this.y) * 15 : 0;
-		scene.ball.setVelocity(velocityX, velocityY);
-	};
-
 	update() {
 		this.move();
 	}

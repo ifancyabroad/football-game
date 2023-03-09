@@ -2,6 +2,8 @@ import Demo from "../game";
 import {Player} from "./player";
 
 export class Ball extends Phaser.Physics.Arcade.Image {
+	private floorCollider: Phaser.Physics.Arcade.Collider;
+
 	constructor(
 		scene: Phaser.Scene,
 		x: number,
@@ -17,6 +19,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	}
 
 	public launch = () => {
+		this.scene.physics.world.removeCollider(this.floorCollider);
+
 		const position = Phaser.Math.Between(200, 400);
 		const velocityX = Phaser.Math.Between(250, 350);
 		const velocityY = Phaser.Math.Between(0, -50);
@@ -52,6 +56,19 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		});
 	};
 
+	public saved = () => {
+		const scene = this.scene as Demo;
+		this.scene.sound.play("save");
+		const velocityX = (this.x - scene.goalkeeper.x) * 5;
+		const velocityY = this.y - scene.goalkeeper.y < 0 ? (this.y - scene.goalkeeper.y) * 5 : 0;
+		const angularVelocity =
+			velocityX > 0 ? Phaser.Math.Between(40, 80) : Phaser.Math.Between(-40, -80);
+
+		this.setGravityY(150).setVelocity(velocityX, velocityY).setAngularVelocity(angularVelocity);
+
+		this.floorCollider = scene.physics.add.collider(this, scene.floor2);
+	};
+
 	public goal = () => {
 		const scene = this.scene as Demo;
 		this.scene.sound.play("goal");
@@ -76,17 +93,17 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		const scene = this.scene as Demo;
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.sprite)) {
-			scene.goalkeeper.save();
+			this.saved();
 			return;
 		}
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.leftHand)) {
-			scene.goalkeeper.save();
+			this.saved();
 			return;
 		}
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.rightHand)) {
-			scene.goalkeeper.save();
+			this.saved();
 			return;
 		}
 

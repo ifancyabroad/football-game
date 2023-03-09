@@ -31,7 +31,7 @@ export class Button extends Phaser.GameObjects.Container {
 			.on("pointerup", () => {
 				const demoScene = scene as Demo;
 				this.enterButtonRestState();
-				demoScene.ball.reset();
+				demoScene.ball.launch();
 			});
 
 		scene.add.existing(this);

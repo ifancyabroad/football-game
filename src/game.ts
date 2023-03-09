@@ -27,6 +27,7 @@ export default class Demo extends Phaser.Scene {
 		this.load.image("button", "assets/button.png");
 		this.load.image("goalkeeper", "assets/goalkeeper.png");
 		this.load.image("boot", "assets/boot.png");
+		this.load.image("goal_text", "assets/goal_text.png");
 		this.load.audio("kick", "assets/sport_soccer_ball_kick.mp3");
 		this.load.audio("goal", "assets/human_crowd_approx_150_people_cheer_indoors.mp3");
 		this.load.audio("save", "assets/mixkit-soccer-ball-quick-kick-2108.wav");

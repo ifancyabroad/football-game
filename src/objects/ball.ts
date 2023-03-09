@@ -11,23 +11,23 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	) {
 		super(scene, x, y, texture, frame);
 
-		scene.add.existing(this);
+		scene.add.existing(this).setVisible(false);
 
-		scene.physics.add
-			.existing(this)
-			.setCircle(32)
-			.setBounce(0.5)
-			.setGravityY(150)
-			.setVelocity(300, -50)
-			.setAngularVelocity(50);
+		scene.physics.add.existing(this);
 	}
 
-	public reset = () => {
+	public launch = () => {
 		const position = Phaser.Math.Between(200, 400);
 		const velocityX = Phaser.Math.Between(250, 350);
 		const velocityY = Phaser.Math.Between(0, -50);
 		const angularVelocity = Phaser.Math.Between(10, 100);
-		this.setScale(1)
+		this.setTexture("ball")
+			.setAlpha(1)
+			.setOffset(0)
+			.setCircle(32)
+			.setBounce(0.5)
+			.setVisible(true)
+			.setScale(1)
 			.setGravityY(150)
 			.setPosition(0, position)
 			.setVelocity(velocityX, velocityY)
@@ -52,6 +52,26 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		});
 	};
 
+	public goal = () => {
+		const scene = this.scene as Demo;
+		this.scene.sound.play("goal");
+		scene.score++;
+		scene.scoreCounter.updateScore(scene.score);
+		this.body.stop();
+		this.setTexture("goal_text").setScale(0.5).setRotation(0).setOffset(80, 0);
+
+		this.scene.add.tween({
+			targets: this,
+			scale: 1,
+			alpha: 0,
+			duration: 600,
+			callbackScope: this,
+			onComplete: () => {
+				this.setVisible(false);
+			},
+		});
+	};
+
 	public scoreCheck = () => {
 		const scene = this.scene as Demo;
 
@@ -71,10 +91,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		}
 
 		if (this.scene.physics.overlap(this, scene.goal)) {
-			this.scene.sound.play("goal");
-			scene.score++;
-			scene.scoreCounter.updateScore(scene.score);
-			this.body.stop();
+			this.goal();
 		}
 	};
 }

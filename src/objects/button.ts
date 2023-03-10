@@ -1,4 +1,4 @@
-import Demo from "../game";
+import {Game} from "../scenes";
 
 export class Button extends Phaser.GameObjects.Container {
 	private background: Phaser.GameObjects.Image;
@@ -29,9 +29,9 @@ export class Button extends Phaser.GameObjects.Container {
 			.on("pointerout", this.enterButtonRestState, this)
 			.on("pointerdown", this.enterButtonActiveState, this)
 			.on("pointerup", () => {
-				const demoScene = scene as Demo;
+				const gameScene = scene as Game;
 				this.enterButtonRestState();
-				demoScene.ball.launch();
+				gameScene.ball.launch();
 			});
 
 		scene.add.existing(this);

@@ -1,5 +1,5 @@
-import Demo from "../game";
-import {Player} from "./player";
+import {Game} from "../scenes";
+import {Player} from "./Player";
 
 export class Ball extends Phaser.Physics.Arcade.Image {
 	private floorCollider: Phaser.Physics.Arcade.Collider;
@@ -57,7 +57,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	};
 
 	public saved = () => {
-		const scene = this.scene as Demo;
+		const scene = this.scene as Game;
 		this.scene.sound.play("save");
 		const velocityX = (this.x - scene.goalkeeper.x) * 5;
 		const velocityY = this.y - scene.goalkeeper.y < 0 ? (this.y - scene.goalkeeper.y) * 5 : 0;
@@ -70,7 +70,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	};
 
 	public goal = () => {
-		const scene = this.scene as Demo;
+		const scene = this.scene as Game;
 		this.scene.sound.play("goal");
 		scene.score++;
 		scene.scoreCounter.updateScore(scene.score);
@@ -90,7 +90,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	};
 
 	public scoreCheck = () => {
-		const scene = this.scene as Demo;
+		const scene = this.scene as Game;
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.sprite)) {
 			this.saved();

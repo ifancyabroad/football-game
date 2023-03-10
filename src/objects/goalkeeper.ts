@@ -1,5 +1,3 @@
-import Demo from "../game";
-
 export class Goalkeeper extends Phaser.GameObjects.Container {
 	public sprite: Phaser.Physics.Arcade.Sprite;
 	public leftHand: Phaser.GameObjects.Arc;

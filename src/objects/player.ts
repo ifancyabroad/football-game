@@ -1,4 +1,4 @@
-import Demo from "../game";
+import {Game} from "../scenes";
 
 enum PlayerState {
 	Idle,
@@ -37,7 +37,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.setState(PlayerState.Active);
 
-		const scene = this.scene as Demo;
+		const scene = this.scene as Game;
 
 		scene.physics.overlap(this, scene.ball, scene.ball.shoot);
 

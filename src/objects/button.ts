@@ -1,5 +1,3 @@
-import {Game} from "../scenes";
-
 export class Button extends Phaser.GameObjects.Container {
 	private background: Phaser.GameObjects.Image;
 	private text: Phaser.GameObjects.Text;
@@ -14,9 +12,9 @@ export class Button extends Phaser.GameObjects.Container {
 
 		this.setData("defaultPosition", y);
 
-		this.background = scene.add.image(0, 0, "button").setScale(0.4);
+		this.background = scene.add.image(0, 0, "yellow_button").setScale(0.5);
 		this.text = scene.add
-			.text(0, 0, "LAUNCH BALL", {
+			.text(0, 0, "START", {
 				fontSize: "18px",
 				fontFamily: "Arial, sans-serif",
 			})
@@ -29,19 +27,18 @@ export class Button extends Phaser.GameObjects.Container {
 			.on("pointerout", this.enterButtonRestState, this)
 			.on("pointerdown", this.enterButtonActiveState, this)
 			.on("pointerup", () => {
-				const gameScene = scene as Game;
 				this.enterButtonRestState();
-				gameScene.ball.launch();
+				this.scene.scene.start("game");
 			});
 
 		scene.add.existing(this);
 	}
 
 	private enterButtonRestState() {
-		this.setY(this.data.values.defaultPosition);
+		this.background.setTexture("yellow_button");
 	}
 
 	private enterButtonActiveState() {
-		this.setY(this.y + 5);
+		this.background.setTexture("yellow_button_tapped");
 	}
 }

@@ -1,4 +1,4 @@
-import {Ball, Button, Floor, Goal, Goalkeeper, Player, ScoreCounter} from "../objects";
+import {Ball, Floor, Goal, Goalkeeper, Player, ScoreCounter} from "../objects";
 
 export class Game extends Phaser.Scene {
 	public score: number;
@@ -33,5 +33,6 @@ export class Game extends Phaser.Scene {
 
 	update() {
 		this.goalkeeper.update();
+		this.ball.update();
 	}
 }

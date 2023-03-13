@@ -1,6 +1,15 @@
 import {Game} from "../scenes";
 import {Player} from "./Player";
 
+enum BallState {
+	Idle,
+	Active,
+	OutOfBounds,
+	Saved,
+	Scored,
+	Resetting,
+}
+
 export class Ball extends Phaser.Physics.Arcade.Image {
 	private floorCollider: Phaser.Physics.Arcade.Collider;
 
@@ -13,12 +22,20 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	) {
 		super(scene, x, y, texture, frame);
 
+		this.setState(BallState.Idle);
+
 		scene.add.existing(this).setVisible(false);
 
 		scene.physics.add.existing(this);
 	}
 
+	private get inView() {
+		return Phaser.Geom.Rectangle.Overlaps(this.getBounds(), this.scene.cameras.main.worldView);
+	}
+
 	public launch = () => {
+		this.setState(BallState.Active);
+
 		this.scene.physics.world.removeCollider(this.floorCollider);
 
 		const position = Phaser.Math.Between(200, 400);
@@ -67,6 +84,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		this.setGravityY(150).setVelocity(velocityX, velocityY).setAngularVelocity(angularVelocity);
 
 		this.floorCollider = scene.physics.add.collider(this, scene.floor2);
+
+		this.setState(BallState.Saved);
 	};
 
 	public goal = () => {
@@ -76,6 +95,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		scene.scoreCounter.updateScore(scene.score);
 		this.body.stop();
 		this.setTexture("goal_text").setScale(0.5).setRotation(0).setOffset(80, 0);
+
+		this.setState(BallState.Scored);
 
 		this.scene.add.tween({
 			targets: this,
@@ -111,4 +132,41 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 			this.goal();
 		}
 	};
+
+	private inViewCheck = () => {
+		if (!this.inView) {
+			this.setState(BallState.OutOfBounds);
+		}
+	};
+
+	private reset = () => {
+		this.setState(BallState.Resetting);
+		this.scene.time.delayedCall(
+			1000,
+			() => {
+				this.launch();
+			},
+			null,
+			this
+		);
+	};
+
+	update() {
+		switch (this.state) {
+			case BallState.OutOfBounds:
+				this.reset();
+				break;
+			case BallState.Saved:
+				this.reset();
+				break;
+			case BallState.Scored:
+				this.reset();
+				break;
+			case BallState.Active:
+				this.inViewCheck();
+				break;
+			default:
+				break;
+		}
+	}
 }

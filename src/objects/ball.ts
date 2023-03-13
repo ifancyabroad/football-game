@@ -29,10 +29,6 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		scene.physics.add.existing(this);
 	}
 
-	private get inView() {
-		return Phaser.Geom.Rectangle.Overlaps(this.getBounds(), this.scene.cameras.main.worldView);
-	}
-
 	public launch = () => {
 		this.setState(BallState.Active);
 
@@ -134,7 +130,12 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	};
 
 	private inViewCheck = () => {
-		if (!this.inView) {
+		const worldEmpty = this.scene.cameras.main.worldView.isEmpty();
+		const inView = Phaser.Geom.Rectangle.Overlaps(
+			this.getBounds(),
+			this.scene.cameras.main.worldView
+		);
+		if (!worldEmpty && !inView) {
 			this.setState(BallState.OutOfBounds);
 		}
 	};

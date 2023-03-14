@@ -8,6 +8,7 @@ export class Loading extends Phaser.Scene {
 		this.load.image("yellow_button", "assets/ui/yellowRectNormal.png");
 		this.load.image("yellow_button_tapped", "assets/ui/yellowRectTapped.png");
 		this.load.image("goals_background", "assets/ui/starIcon.png");
+		this.load.image("timer_background", "assets/ui/borderCircle.png");
 
 		this.load.image("ball", "assets/ball.png");
 		this.load.image("background", "assets/goal2.jpg");

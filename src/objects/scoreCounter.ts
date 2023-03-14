@@ -15,6 +15,7 @@ export class ScoreCounter extends Phaser.GameObjects.Container {
 			.text(0, 0, "0", {
 				fontSize: "24px",
 				fontFamily: "Arial, sans-serif",
+				color: "#000",
 			})
 			.setOrigin(0.5, 0.5);
 

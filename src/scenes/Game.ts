@@ -1,8 +1,9 @@
-import {Ball, Floor, Goal, Goalkeeper, Player, ScoreCounter} from "../objects";
+import {Ball, Floor, Goal, Goalkeeper, Player, ScoreCounter, Timer} from "../objects";
 
 export class Game extends Phaser.Scene {
 	public score: number;
 	public scoreCounter: ScoreCounter;
+	public timer: Timer;
 	public floor1: Floor;
 	public floor2: Floor;
 	public goal: Goal;
@@ -19,6 +20,7 @@ export class Game extends Phaser.Scene {
 
 		this.score = 0;
 		this.scoreCounter = new ScoreCounter(this, 720, 60);
+		this.timer = new Timer(this, 400, 60);
 		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);
 		this.goal = new Goal(this, 400, 240, 400, 140);

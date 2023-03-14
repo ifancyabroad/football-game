@@ -15,17 +15,19 @@ export class Menu extends Phaser.Scene {
 			.text(400, 230, "BEAT THE KEEPER!", {
 				fontSize: "20px",
 				fontFamily: "Arial, sans-serif",
+				align: "center",
 			})
 			.setOrigin(0.5);
 		this.add
 			.text(400, 270, "Score as many goals as you can in the time limit.", {
 				fontSize: "16px",
 				fontFamily: "Arial, sans-serif",
+				align: "center",
 				wordWrap: {
 					width: 200,
 				},
 			})
 			.setOrigin(0.5);
-		this.button = new Button(this, 400, 350);
+		this.button = new Button(this, "START", 400, 350);
 	}
 }

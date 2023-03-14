@@ -4,6 +4,7 @@ export class Button extends Phaser.GameObjects.Container {
 
 	constructor(
 		scene: Phaser.Scene,
+		text: string,
 		x?: number,
 		y?: number,
 		children?: Phaser.GameObjects.GameObject[]
@@ -14,7 +15,7 @@ export class Button extends Phaser.GameObjects.Container {
 
 		this.background = scene.add.image(0, 0, "yellow_button").setScale(0.5);
 		this.text = scene.add
-			.text(0, 0, "START", {
+			.text(0, 0, text, {
 				fontSize: "18px",
 				fontFamily: "Arial, sans-serif",
 			})

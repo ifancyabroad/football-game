@@ -13,15 +13,15 @@ export class GameOver extends Phaser.Scene {
 		this.add.image(400, 300, "menu_background");
 		this.add
 			.text(400, 230, "CONGRATULATIONS!", {
-				fontSize: "20px",
-				fontFamily: "Arial, sans-serif",
+				fontSize: "24px",
+				fontFamily: "'Lilita One', cursive",
 				align: "center",
 			})
 			.setOrigin(0.5);
 		this.add
 			.text(400, 270, `You scored a total of ${data.score} goals.`, {
 				fontSize: "16px",
-				fontFamily: "Arial, sans-serif",
+				fontFamily: "'Lilita One', cursive",
 				align: "center",
 				wordWrap: {
 					width: 200,

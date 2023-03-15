@@ -14,8 +14,9 @@ export class ScoreCounter extends Phaser.GameObjects.Container {
 		this.text = scene.add
 			.text(0, 0, "0", {
 				fontSize: "24px",
-				fontFamily: "Arial, sans-serif",
-				color: "#000",
+				fontFamily: "'Lilita One', cursive",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5, 0.5);
 
@@ -26,5 +27,20 @@ export class ScoreCounter extends Phaser.GameObjects.Container {
 
 	public updateScore = (score: number) => {
 		this.text.setText(score.toString());
+
+		this.scene.add.tween({
+			targets: this,
+			scale: 1.4,
+			duration: 300,
+			yoyo: true,
+			ease: "Bounce.easeInOut",
+		});
+
+		this.scene.add.tween({
+			targets: this.background,
+			angle: 720,
+			duration: 300,
+			ease: "Bounce.easeInOut",
+		});
 	};
 }

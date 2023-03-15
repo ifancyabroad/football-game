@@ -16,8 +16,10 @@ export class Button extends Phaser.GameObjects.Container {
 		this.background = scene.add.image(0, 0, "yellow_button").setScale(0.5);
 		this.text = scene.add
 			.text(0, 0, text, {
-				fontSize: "18px",
-				fontFamily: "Arial, sans-serif",
+				fontSize: "24px",
+				fontFamily: "'Lilita One', cursive",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5, 0.5);
 

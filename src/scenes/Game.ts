@@ -19,8 +19,8 @@ export class Game extends Phaser.Scene {
 		this.add.image(0, 0, "background").setOrigin(0);
 
 		this.score = 0;
-		this.scoreCounter = new ScoreCounter(this, 720, 60);
-		this.timer = new Timer(this, 400, 60);
+		this.scoreCounter = new ScoreCounter(this, 440, 60);
+		this.timer = new Timer(this, 360, 60);
 		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);
 		this.goal = new Goal(this, 400, 240, 400, 140);

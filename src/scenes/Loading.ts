@@ -17,7 +17,10 @@ export class Loading extends Phaser.Scene {
 		this.load.image("boot", "assets/boot.png");
 		this.load.image("goal_text", "assets/goal_text.png");
 		this.load.audio("kick", "assets/sport_soccer_ball_kick.mp3");
-		this.load.audio("goal", "assets/human_crowd_approx_150_people_cheer_indoors.mp3");
+		this.load.audio(
+			"goal",
+			"assets/zapsplat_multimedia_game_sound_collect_point_space_game_001_97071.mp3"
+		);
 		this.load.audio("save", "assets/mixkit-soccer-ball-quick-kick-2108.wav");
 	}
 

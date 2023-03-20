@@ -23,7 +23,7 @@ export class Game extends Phaser.Scene {
 		this.timer = new Timer(this, 360, 60);
 		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);
-		this.goal = new Goal(this, 400, 240, 400, 140);
+		this.goal = new Goal(this, 400, 230);
 		this.goalkeeper = new Goalkeeper(this, 400, 280);
 		this.ball = new Ball(this, 0, 300, "ball");
 		this.player = new Player(this, 400, 480, "boot");

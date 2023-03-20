@@ -69,7 +69,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		});
 	};
 
-	public saved = () => {
+	private saved = () => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("save");
 		const velocityX = (this.x - scene.goalkeeper.x) * 5;
@@ -84,7 +84,41 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		this.setState(BallState.Saved);
 	};
 
-	public goal = () => {
+	private post = (object: Phaser.GameObjects.Rectangle) => {
+		const scene = this.scene as Game;
+		this.scene.sound.play("post");
+		const x = object.parentContainer.x + object.x;
+		const y = object.parentContainer.y + object.y;
+		const velocityX = (this.x - x) * 20;
+		const velocityY = this.y - y;
+		const angularVelocity =
+			velocityX > 0 ? Phaser.Math.Between(40, 80) : Phaser.Math.Between(-40, -80);
+
+		this.setGravityY(150).setVelocity(velocityX, velocityY).setAngularVelocity(angularVelocity);
+
+		this.floorCollider = scene.physics.add.collider(this, scene.floor2);
+
+		this.setState(BallState.Saved);
+	};
+
+	private crossbar = (object: Phaser.GameObjects.Rectangle) => {
+		const scene = this.scene as Game;
+		this.scene.sound.play("post");
+		const x = object.parentContainer.x + object.x;
+		const y = object.parentContainer.y + object.y;
+		const velocityX = this.x - x;
+		const velocityY = (this.y - y) * 20;
+		const angularVelocity =
+			velocityX > 0 ? Phaser.Math.Between(40, 80) : Phaser.Math.Between(-40, -80);
+
+		this.setGravityY(150).setVelocity(velocityX, velocityY).setAngularVelocity(angularVelocity);
+
+		this.floorCollider = scene.physics.add.collider(this, scene.floor2);
+
+		this.setState(BallState.Saved);
+	};
+
+	private goal = () => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("goal");
 		scene.score++;
@@ -106,7 +140,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		});
 	};
 
-	public scoreCheck = () => {
+	private scoreCheck = () => {
 		const scene = this.scene as Game;
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.sprite)) {
@@ -124,7 +158,22 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 			return;
 		}
 
-		if (this.scene.physics.overlap(this, scene.goal)) {
+		if (this.scene.physics.overlap(this, scene.goal.leftPost)) {
+			this.post(scene.goal.leftPost);
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goal.rightPost)) {
+			this.post(scene.goal.rightPost);
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goal.crossbar)) {
+			this.crossbar(scene.goal.crossbar);
+			return;
+		}
+
+		if (this.scene.physics.overlap(this, scene.goal.goal)) {
 			this.goal();
 		}
 	};

@@ -16,6 +16,8 @@ export class GameOver extends Phaser.Scene {
 				fontSize: "24px",
 				fontFamily: "'Lilita One', cursive",
 				align: "center",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5);
 		this.add
@@ -23,6 +25,8 @@ export class GameOver extends Phaser.Scene {
 				fontSize: "16px",
 				fontFamily: "'Lilita One', cursive",
 				align: "center",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5);
 		this.add
@@ -30,6 +34,8 @@ export class GameOver extends Phaser.Scene {
 				fontSize: "48px",
 				fontFamily: "'Lilita One', cursive",
 				align: "center",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5);
 		this.button = new Button(this, "PLAY AGAIN", 400, 350);

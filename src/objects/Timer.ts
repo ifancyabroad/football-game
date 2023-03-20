@@ -19,7 +19,8 @@ export class Timer extends Phaser.GameObjects.Container {
 			.text(0, 0, "30", {
 				fontSize: "24px",
 				fontFamily: "'Lilita One', cursive",
-				color: "#000",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5, 0.5);
 

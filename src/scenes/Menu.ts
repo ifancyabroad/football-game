@@ -16,6 +16,8 @@ export class Menu extends Phaser.Scene {
 				fontSize: "24px",
 				fontFamily: "'Lilita One', cursive",
 				align: "center",
+				stroke: "#000",
+				strokeThickness: 3,
 			})
 			.setOrigin(0.5);
 		this.add
@@ -23,6 +25,8 @@ export class Menu extends Phaser.Scene {
 				fontSize: "16px",
 				fontFamily: "'Lilita One', cursive",
 				align: "center",
+				stroke: "#000",
+				strokeThickness: 3,
 				wordWrap: {
 					width: 200,
 				},

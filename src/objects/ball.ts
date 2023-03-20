@@ -53,6 +53,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 	public shoot = (object1: Phaser.GameObjects.GameObject) => {
 		const player = object1 as Player;
+		const scene = this.scene as Game;
 
 		this.scene.sound.play("kick");
 
@@ -60,6 +61,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		const velocityY = (this.y - player.y) * 20;
 
 		this.setGravityY(0).setVelocity(velocityX, velocityY).setAngularVelocity(0);
+
+		this.scene.time.delayedCall(200, scene.goalkeeper.startTracking, null, this);
 
 		this.scene.add.tween({
 			targets: this,
@@ -142,6 +145,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 
 	private scoreCheck = () => {
 		const scene = this.scene as Game;
+
+		scene.goalkeeper.stopTracking();
 
 		if (this.scene.physics.overlap(this, scene.goalkeeper.sprite)) {
 			this.saved();

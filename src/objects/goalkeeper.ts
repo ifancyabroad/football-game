@@ -1,3 +1,10 @@
+import {Game} from "../scenes";
+
+enum GoalkeeperState {
+	Idle,
+	Tracking,
+}
+
 export class Goalkeeper extends Phaser.GameObjects.Container {
 	public sprite: Phaser.Physics.Arcade.Sprite;
 	public leftHand: Phaser.GameObjects.Arc;
@@ -10,6 +17,8 @@ export class Goalkeeper extends Phaser.GameObjects.Container {
 		children?: Phaser.GameObjects.GameObject[]
 	) {
 		super(scene, x, y, children);
+
+		this.setState(GoalkeeperState.Idle);
 
 		this.setData({
 			defaultPosition: x,
@@ -69,7 +78,40 @@ export class Goalkeeper extends Phaser.GameObjects.Container {
 		}
 	};
 
+	private trackBall = () => {
+		if (!(this.body instanceof Phaser.Physics.Arcade.Body)) {
+			return;
+		}
+
+		const scene = this.scene as Game;
+
+		if (this.x > scene.ball.x) {
+			this.body.setVelocityX(-this.data.values.speed * 3);
+		}
+
+		if (scene.ball.x > this.x) {
+			this.body.setVelocityX(this.data.values.speed * 3);
+		}
+	};
+
+	public startTracking = () => {
+		this.setState(GoalkeeperState.Tracking);
+	};
+
+	public stopTracking = () => {
+		this.setState(GoalkeeperState.Idle);
+	};
+
 	update() {
-		this.move();
+		switch (this.state) {
+			case GoalkeeperState.Idle:
+				this.move();
+				break;
+			case GoalkeeperState.Tracking:
+				this.trackBall();
+				break;
+			default:
+				break;
+		}
 	}
 }

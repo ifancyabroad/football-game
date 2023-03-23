@@ -23,9 +23,23 @@ export class Loading extends Phaser.Scene {
 		);
 		this.load.audio("save", "assets/mixkit-soccer-ball-quick-kick-2108.wav");
 		this.load.audio("post", "assets/zapsplat_sport_soccer_ball_hit_goal_crossbar_12520.mp3");
+		this.load.script(
+			"webfont",
+			"https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+		);
 	}
 
 	create() {
-		this.scene.start("menu");
+		const scene = this.scene;
+
+		// @ts-ignore
+		WebFont.load({
+			google: {
+				families: ["Lilita One"],
+			},
+			active: function () {
+				scene.start("menu");
+			},
+		});
 	}
 }

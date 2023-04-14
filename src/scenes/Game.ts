@@ -2,6 +2,7 @@ import {
 	Ball,
 	Floor,
 	Goal,
+	GoalCounter,
 	Goalkeeper,
 	Player,
 	RestartButton,
@@ -12,6 +13,8 @@ import {
 export class Game extends Phaser.Scene {
 	public score: number;
 	public scoreCounter: ScoreCounter;
+	public goals: number;
+	public goalCounter: GoalCounter;
 	public timer: Timer;
 	public restartButton: RestartButton;
 	public floor1: Floor;
@@ -29,8 +32,10 @@ export class Game extends Phaser.Scene {
 		this.add.image(0, 0, "background").setOrigin(0);
 
 		this.score = 0;
-		this.scoreCounter = new ScoreCounter(this, 440, 60);
-		this.timer = new Timer(this, 360, 60);
+		this.goals = 0;
+		this.scoreCounter = new ScoreCounter(this, 420, 60);
+		this.goalCounter = new GoalCounter(this, 520, 60);
+		this.timer = new Timer(this, 320, 60);
 		this.restartButton = new RestartButton(this, 60, 60);
 		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);

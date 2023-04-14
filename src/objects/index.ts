@@ -7,3 +7,4 @@ export * from "./Player";
 export * from "./ScoreCounter";
 export * from "./Timer";
 export * from "./RestartButton";
+export * from "./GoalCounter";

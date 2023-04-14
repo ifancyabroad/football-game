@@ -56,6 +56,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		const scene = this.scene as Game;
 
 		this.scene.sound.play("kick");
+		scene.scoreCounter.updateScore(20);
 
 		const velocityX = (this.x - player.x) * 10;
 		const velocityY = (this.y - player.y) * 20;
@@ -75,6 +76,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	private saved = () => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("save");
+		scene.scoreCounter.updateScore(100);
 		const velocityX = (this.x - scene.goalkeeper.x) * 5;
 		const velocityY = this.y - scene.goalkeeper.y < 0 ? (this.y - scene.goalkeeper.y) * 5 : 0;
 		const angularVelocity =
@@ -90,6 +92,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	private post = (object: Phaser.GameObjects.Rectangle) => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("post");
+		scene.scoreCounter.updateScore(50);
 		const x = object.parentContainer.x + object.x;
 		const y = object.parentContainer.y + object.y;
 		const velocityX = (this.x - x) * 20;
@@ -107,6 +110,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	private crossbar = (object: Phaser.GameObjects.Rectangle) => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("post");
+		scene.scoreCounter.updateScore(50);
 		const x = object.parentContainer.x + object.x;
 		const y = object.parentContainer.y + object.y;
 		const velocityX = this.x - x;
@@ -124,8 +128,8 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 	private goal = () => {
 		const scene = this.scene as Game;
 		this.scene.sound.play("goal");
-		scene.score++;
-		scene.scoreCounter.updateScore(scene.score);
+		scene.scoreCounter.updateScore(200);
+		scene.goalCounter.addGoal();
 		scene.timer.updateTimer(2);
 		this.body.stop();
 		this.setTexture("goal_text").setScale(0.5).setRotation(0).setOffset(80, 0);

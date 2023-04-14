@@ -9,6 +9,7 @@ import {
 	ScoreCounter,
 	Timer,
 } from "../objects";
+import {saveScore} from "../utils";
 
 export class Game extends Phaser.Scene {
 	public score: number;
@@ -33,9 +34,9 @@ export class Game extends Phaser.Scene {
 
 		this.score = 0;
 		this.goals = 0;
-		this.scoreCounter = new ScoreCounter(this, 420, 60);
-		this.goalCounter = new GoalCounter(this, 520, 60);
-		this.timer = new Timer(this, 320, 60);
+		this.scoreCounter = new ScoreCounter(this, 400, 60);
+		this.goalCounter = new GoalCounter(this, 500, 60);
+		this.timer = new Timer(this, 300, 60);
 		this.restartButton = new RestartButton(this, 60, 60);
 		this.floor1 = new Floor(this, 400, 500, 0, 0, 800, 0);
 		this.floor2 = new Floor(this, 400, 380, 0, 0, 800, 0);
@@ -47,6 +48,11 @@ export class Game extends Phaser.Scene {
 		this.physics.add.collider(this.ball, this.floor1);
 
 		this.ball.launch();
+	}
+
+	public gameOver() {
+		saveScore(this.score);
+		this.scene.start("gameOver", {score: this.score});
 	}
 
 	update() {

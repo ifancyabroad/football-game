@@ -38,13 +38,13 @@ export class Timer extends Phaser.GameObjects.Container {
 	}
 
 	public updateTimer = (time = -1) => {
-		const {score} = this.scene as Game;
+		const scene = this.scene as Game;
 		if (this.initialTime > 0) {
 			this.initialTime += time;
 			this.text.setText(this.initialTime.toString());
 		} else {
 			this.timerEvent.remove();
-			this.scene.scene.start("gameOver", {score});
+			scene.gameOver();
 		}
 	};
 }

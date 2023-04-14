@@ -6,3 +6,4 @@ export * from "./Goalkeeper";
 export * from "./Player";
 export * from "./ScoreCounter";
 export * from "./Timer";
+export * from "./RestartButton";

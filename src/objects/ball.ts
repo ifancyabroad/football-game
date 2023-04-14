@@ -126,6 +126,7 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 		this.scene.sound.play("goal");
 		scene.score++;
 		scene.scoreCounter.updateScore(scene.score);
+		scene.timer.updateTimer(2);
 		this.body.stop();
 		this.setTexture("goal_text").setScale(0.5).setRotation(0).setOffset(80, 0);
 

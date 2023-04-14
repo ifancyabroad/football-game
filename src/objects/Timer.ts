@@ -37,10 +37,10 @@ export class Timer extends Phaser.GameObjects.Container {
 		scene.add.existing(this);
 	}
 
-	private updateTimer = () => {
+	public updateTimer = (time = -1) => {
 		const {score} = this.scene as Game;
 		if (this.initialTime > 0) {
-			this.initialTime -= 1;
+			this.initialTime += time;
 			this.text.setText(this.initialTime.toString());
 		} else {
 			this.timerEvent.remove();

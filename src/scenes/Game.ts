@@ -45,6 +45,7 @@ export class Game extends Phaser.Scene {
 	}
 
 	update() {
+		this.player.update();
 		this.goalkeeper.update();
 		this.ball.update();
 	}

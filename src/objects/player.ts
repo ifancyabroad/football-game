@@ -6,6 +6,9 @@ enum PlayerState {
 }
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
+	private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+	private spacebar: Phaser.Input.Keyboard.Key;
+
 	constructor(
 		scene: Phaser.Scene,
 		x: number,
@@ -24,6 +27,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 		scene.input.on("pointermove", this.trackPlayer, this);
 
 		scene.input.on("pointerup", this.takeShot, this);
+
+		this.cursors = scene.input.keyboard.createCursorKeys();
+		this.spacebar = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 	}
 
 	private trackPlayer = (pointer: Phaser.Input.Pointer) => {
@@ -54,4 +60,18 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 			},
 		});
 	};
+
+	update() {
+		this.setVelocity(0);
+
+		if (this.cursors.left.isDown) {
+			this.setVelocityX(-300);
+		} else if (this.cursors.right.isDown) {
+			this.setVelocityX(300);
+		}
+
+		if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+			this.takeShot();
+		}
+	}
 }

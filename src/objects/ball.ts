@@ -45,10 +45,19 @@ export class Ball extends Phaser.Physics.Arcade.Image {
 			.setBounce(0.5)
 			.setVisible(true)
 			.setScale(1)
-			.setGravityY(150)
-			.setPosition(0, position)
-			.setVelocity(velocityX, velocityY)
-			.setAngularVelocity(angularVelocity);
+			.setGravityY(150);
+
+		const direction = Phaser.Math.Between(0, 1);
+
+		if (direction) {
+			this.setPosition(800, position)
+				.setVelocity(-velocityX, velocityY)
+				.setAngularVelocity(-angularVelocity);
+		} else {
+			this.setPosition(0, position)
+				.setVelocity(velocityX, velocityY)
+				.setAngularVelocity(angularVelocity);
+		}
 	};
 
 	public shoot = (object1: Phaser.GameObjects.GameObject) => {
